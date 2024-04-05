@@ -1,120 +1,22 @@
-let lastContacts = null;
-let lastFilter = null;
-let lastFilteredContacts = null;
+import { createSelector } from 'reselect';
 
-export const getFilteredContacts = store => {
-  const { contacts, filter } = store;
-  
+const getContacts = store => store.contacts;
+const getFilter = store => store.filter;
 
-  if (contacts === lastContacts && filter === lastFilter) {
-    return lastFilteredContacts;
-  }
-  
-  lastContacts = contacts;
-  lastFilter = filter;
-
-  if (!filter || !contacts) {
-    lastFilteredContacts = [];
-    return lastFilteredContacts;
-  }
-  
-  const normalizedFilter = filter.toLowerCase();
-  const filteredContacts = contacts.filter(({ name, phone }) => {
-    if (!name || !phone) {
-      return false;
+export const getFilteredContacts = createSelector(
+  [getContacts, getFilter],
+  (contacts, filter) => {
+    if (!filter) {
+      return contacts;
     }
-    
-    const normalizedName = name.toLowerCase();
-
-    return (
-      normalizedName.includes(normalizedFilter) ||
-      phone.includes(normalizedFilter)
-    );
-  });
-
-  lastFilteredContacts = filteredContacts;
-  return lastFilteredContacts;
-};
-
-
-
-
-
-// export const getFilteredContacts = store => {
-//   const { contacts, filter } = store;
-//   if (!filter || !contacts) {
-//     return [];
-//   }
-  
-//   const normalizedFilter = filter.toLowerCase();
-//   const filteredContacts = contacts.filter(({ name, phone }) => {
-  
-//     if (!name || !phone) {
-//       return false;
-//     }
-    
-//     const normalizedName = name.toLowerCase();
-
-//     return (
-//       normalizedName.includes(normalizedFilter) ||
-//       phone.includes(normalizedFilter)
-//     );
-//   });
-
-//   return filteredContacts;
-// };
-
-
-
-
-
-
-
-
-
-// export const getFilteredContacts = store => {
-//   const { contacts, filter } = store;
-//   if (!filter || !contacts) {
-//     return [];
-//   }
-  
-//   const normalizedFilter = filter.toLowerCase();
-//   const filteredContacts = contacts.filter(({ name, phone }) => {
-//     const normalizedName = name.toLowerCase();
-
-//     return (
-//       normalizedName.includes(normalizedFilter) ||
-//       phone.includes(normalizedFilter)
-//     );
-//   });
-
-//   return filteredContacts;
-// };
-
-
-
-
-
-
-
-
-
-// export const getContacts = store => store.contacts;
-
-// export const getFilteredContacts = store => {
-//   const { contacts, filter } = store;
-//   if (!filter) {
-//     return contacts;
-//   }
-//   const normalizedFilter = filter.toLowerCase();
-//   const filtredContacts = contacts.filter(({ name, phone }) => {
-//     const normalizedName = name.toLowerCase();
-
-//     return (
-//       normalizedName.includes(normalizedFilter) ||
-//       phone.includes(normalizedFilter)
-//     );
-//   });
-
-//   return filtredContacts;
-// };
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(({ name, number }) => {
+      const normalizedName = name.toLowerCase();
+      const normalizedNumber = number.toLowerCase(); // Змінено на правильне поле для фільтрації
+      return (
+        normalizedName.includes(normalizedFilter) ||
+        normalizedNumber.includes(normalizedFilter)
+      );
+    });
+  }
+);
