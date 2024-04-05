@@ -1,8 +1,8 @@
 // import React from 'react';
 import { useSelector } from 'react-redux';
 import ContactItem from './ContactItem/ContactItem';
-import { getFilteredContacts } from '../../phoneBookRedux/contacts/contacts-selectors';
-import { deleteContact } from '../../phoneBookRedux/contacts/contacts-slice';
+import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
+import { deleteContact } from '../../redux/contacts/contacts-slice';
 import css from './contactList.module.css';
 
 const ContactList = () => {
