@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import ContactForm from './components/ContactForm/ContactForm';
 import ContactList from './components/ContactList/ContactList';
-import Filter from './components/Filter/Filter';
+import SearchBox from './components/SearchBox/SearchBox';
 import {
   addContact,
   deleteContact,
@@ -47,7 +47,7 @@ const App = () => {
       </div>
       <h2 className="titleContacts">Contacts</h2>
       <div className="formContacts">
-        <Filter />
+        <SearchBox />
         {contacts.length > 0 ? (
           <ContactList items={contacts} deleteContact={onDeleteContact} />
         ) : (

@@ -1,9 +1,9 @@
 // import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import css from './filter.module.css';
+import css from './searchBox.module.css';
 import { setFilter } from '../../redux/filter/filter-slice';
 
-const Filter = () => {
+const SearchBox = () => {
   const dispatch = useDispatch();
   const filter = useSelector(state => state.filter);
 
@@ -25,4 +25,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default SearchBox;
